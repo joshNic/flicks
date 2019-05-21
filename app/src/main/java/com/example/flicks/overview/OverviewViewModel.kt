@@ -10,12 +10,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
+
+enum class MoviesApiStatus { LOADING, ERROR, DONE }
 
 class OverviewViewModel : ViewModel() {
 
-    private val _status = MutableLiveData<String>()
+    private val _status = MutableLiveData<MoviesApiStatus>()
 
-    val status: LiveData<String>
+    val status: LiveData<MoviesApiStatus>
         get() = _status
 
     private val _resultData = MutableLiveData<List<Result>>()
@@ -37,14 +40,18 @@ class OverviewViewModel : ViewModel() {
             var getPropertiesDeferred = TMDbApi.retrofitService.getMoviesAsync(API_KEY)
             try {
 
+                _status.value = MoviesApiStatus.LOADING
+
                 var listResult = getPropertiesDeferred.await()
-                _status.value = "Success: ${listResult.results.size} Mars properties retrieved"
-                if (listResult.results.size > 0) {
+
+                if (listResult.results.isNotEmpty()) {
+                    _status.value = MoviesApiStatus.DONE
                     _resultData.value = listResult.results
                 }
 
             } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
+                _status.value = MoviesApiStatus.ERROR
+                _resultData.value = ArrayList()
             }
         }
     }

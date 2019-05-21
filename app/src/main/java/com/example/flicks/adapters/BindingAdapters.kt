@@ -1,5 +1,6 @@
 package com.example.flicks.adapters
 
+import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.flicks.R
 import com.example.flicks.models.Result
+import com.example.flicks.overview.MoviesApiStatus
 import com.example.flicks.overview.PhotoGridAdapter
 
 
@@ -32,5 +34,22 @@ fun bindImage(imgView: ImageView, posterPath: String?) {
                     .error(R.drawable.ic_broken_image)
             )
             .into(imgView)
+    }
+}
+
+@BindingAdapter("moviesApiStatus")
+fun bindStatus(statusImageView: ImageView, status: MoviesApiStatus?) {
+    when (status) {
+        MoviesApiStatus.LOADING -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.loading_animation)
+        }
+        MoviesApiStatus.ERROR -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.ic_connection_error)
+        }
+        MoviesApiStatus.DONE -> {
+            statusImageView.visibility = View.GONE
+        }
     }
 }
