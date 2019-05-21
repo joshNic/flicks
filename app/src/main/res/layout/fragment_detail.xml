@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="viewModel" type="com.example.flicks.movieDetails.MovieDetailViewModel"/>
+    </data>
+
+    <!-- TODO (02) Add <data> declaration with DetailViewModel binding variable -->
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".DetailFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+            <!-- TODO (03) Add app:imageUrl binding adapter attribute pointing to the imgSrcUrl for the selectedProperty -->
+            <ImageView
+                    android:id="@+id/main_photo_image"
+                    android:layout_width="0dp"
+                    android:layout_height="266dp"
+                    android:scaleType="centerCrop"
+                    app:posterPath="@{viewModel.selectedProperty.posterPath}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/backgrounds/scenic"/>
+
+            <!-- TODO (04) Add text attributes for type and value pointing to the values from the selectedProperty -->
+            <!-- TODO (19) Swap text attributes for displayProperty Type and Price in the ViewModel" -->
+            <TextView
+                    android:id="@+id/property_type_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#de000000"
+                    android:textSize="39sp"
+                    android:text="@{viewModel.selectedProperty.originalTitle}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
+                    tools:text="To Rent"/>
+
+            <TextView
+                    android:id="@+id/price_value_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#de000000"
+                    android:textSize="20sp"
+                    android:text="@{viewModel.selectedProperty.overview}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/property_type_text"
+                    tools:text="$100,000"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

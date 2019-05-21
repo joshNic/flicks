@@ -26,6 +26,10 @@ class OverviewViewModel : ViewModel() {
     val resultData: LiveData<List<Result>>
         get() = _resultData
 
+    private val _navigateToSelectedMovie = MutableLiveData<Result>()
+    val navigateToSelectedMovie: LiveData<Result>
+    get() = _navigateToSelectedMovie
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -60,4 +64,11 @@ class OverviewViewModel : ViewModel() {
         super.onCleared()
         viewModelJob.cancel()
     }
+    fun displayPropertyDetails(movieProperty: Result){
+        _navigateToSelectedMovie.value = movieProperty
+    }
+    fun displayPropertyDetailsComplete(){
+        _navigateToSelectedMovie.value = null
+    }
+
 }

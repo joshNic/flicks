@@ -23,7 +23,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Result>?) {
 fun bindImage(imgView: ImageView, posterPath: String?) {
     posterPath?.let {
 
-        val img = "https://image.tmdb.org/t/p/w185/" + posterPath
+        val img = "https://image.tmdb.org/t/p/w500" + posterPath
 
         val imgUri = img.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)

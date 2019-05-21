@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flicks.databinding.GridViewItemBinding
 import com.example.flicks.models.Result
 
-class PhotoGridAdapter : ListAdapter<Result, PhotoGridAdapter.ResultViewHolder>(DiffCallback) {
+class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Result, PhotoGridAdapter.ResultViewHolder>(DiffCallback) {
 
     class ResultViewHolder(private var binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -37,6 +37,12 @@ class PhotoGridAdapter : ListAdapter<Result, PhotoGridAdapter.ResultViewHolder>(
 
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         val resultData = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(resultData)
+        }
         holder.bind(resultData)
+    }
+    class OnClickListener(val clickListener: (resultProperty: Result) -> Unit){
+        fun onClick(resultProperty: Result) = clickListener(resultProperty)
     }
 }
