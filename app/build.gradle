@@ -10,9 +10,10 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId "com.example.android.marsrealestate"
-        minSdkVersion 19
+        applicationId "com.example.flicks"
+        minSdkVersion 21
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -35,7 +36,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
 
     // Constraint Layout
-    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
@@ -46,6 +47,7 @@ dependencies {
 
     // Core with Ktx
     implementation "androidx.core:core-ktx:$version_core"
+
 
     // Moshi
     implementation "com.squareup.moshi:moshi:$version_moshi"

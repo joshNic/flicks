@@ -1,5 +1,6 @@
 package com.example.flicks.overview
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,7 +56,9 @@ class OverviewViewModel : ViewModel() {
 
             } catch (e: Exception) {
                 _status.value = MoviesApiStatus.ERROR
-                _resultData.value = ArrayList()
+//                _resultData.value = ArrayList()
+                Log.i("errorMovie", e.toString())
+
             }
         }
     }
