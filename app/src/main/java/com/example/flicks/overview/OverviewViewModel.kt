@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.flicks.API_KEY
 import com.example.flicks.models.Result
+import com.example.flicks.network.MovieApiFilter
 import com.example.flicks.network.TMDbApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
 
 enum class MoviesApiStatus { LOADING, ERROR, DONE }
 
@@ -29,20 +29,20 @@ class OverviewViewModel : ViewModel() {
 
     private val _navigateToSelectedMovie = MutableLiveData<Result>()
     val navigateToSelectedMovie: LiveData<Result>
-    get() = _navigateToSelectedMovie
+        get() = _navigateToSelectedMovie
 
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        getMovies()
+        getMovies(MovieApiFilter.MOST_POPULAR)
     }
 
-    private fun getMovies() {
+    private fun getMovies(filter: MovieApiFilter) {
         coroutineScope.launch {
 
-            var getPropertiesDeferred = TMDbApi.retrofitService.getMoviesAsync(API_KEY)
+            var getPropertiesDeferred = TMDbApi.retrofitService.getMoviesAsync(filter.path, API_KEY)
             try {
 
                 _status.value = MoviesApiStatus.LOADING
@@ -67,11 +67,17 @@ class OverviewViewModel : ViewModel() {
         super.onCleared()
         viewModelJob.cancel()
     }
-    fun displayPropertyDetails(movieProperty: Result){
+
+    fun displayPropertyDetails(movieProperty: Result) {
         _navigateToSelectedMovie.value = movieProperty
     }
-    fun displayPropertyDetailsComplete(){
+
+    fun displayPropertyDetailsComplete() {
         _navigateToSelectedMovie.value = null
+    }
+
+    fun updateFilter(filter: MovieApiFilter) {
+        getMovies(filter)
     }
 
 }

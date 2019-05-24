@@ -8,9 +8,16 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.themoviedb.org/3/movie/"
+private const val BASE_URL = "https://api.themoviedb.org/"
+
+enum class MovieApiFilter(val path: String) {
+    MOST_POPULAR("popular"), TOP_RATED("top_rated"), UPCOMING("upcoming"), NOW_PLAYING(
+        "now_playing"
+    )
+}
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -24,8 +31,11 @@ private val retrofit = Retrofit.Builder()
 
 interface TMDbApiService {
 
-    @GET("popular")
-    fun getMoviesAsync(@Query("api_key") type: String):
+    @GET("3/movie/{path}")
+    fun getMoviesAsync(
+        @Path("path") path: String,
+        @Query("api_key") type: String
+    ):
             Deferred<MovieResponse>
 }
 
