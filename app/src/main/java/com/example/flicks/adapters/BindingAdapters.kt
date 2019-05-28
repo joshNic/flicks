@@ -10,8 +10,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.flicks.Constants.IMAGE_URL
 import com.example.flicks.R
+import com.example.flicks.models.Genre
 import com.example.flicks.models.MovieTrailerResult
 import com.example.flicks.models.Result
+import com.example.flicks.movieDetails.MovieGenreAdapter
 import com.example.flicks.movieDetails.MovieTrailerAdapter
 import com.example.flicks.overview.MoviesApiStatus
 import com.example.flicks.overview.PhotoGridAdapter
@@ -29,9 +31,20 @@ fun bindTrailerRecyclerView(recyclerView: RecyclerView, dataa: List<MovieTrailer
     adapter.submitList(dataa)
 }
 
+@BindingAdapter("genreData")
+fun bindGenreRecyclerView(recyclerView: RecyclerView, data: List<Genre>?) {
+    val adapter = recyclerView.adapter as MovieGenreAdapter
+    adapter.submitList(data)
+}
+
 
 @BindingAdapter("trailerName")
 fun bindTextView(textView: TextView, name:String){
+    name?.let { textView.text = name }
+}
+
+@BindingAdapter("genreName")
+fun bindGenreTextView(textView: TextView, name:String){
     name?.let { textView.text = name }
 }
 

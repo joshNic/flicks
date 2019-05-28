@@ -23,6 +23,9 @@ class DetailFragment : Fragment() {
         binding.photGrid.adapter = MovieTrailerAdapter(MovieTrailerAdapter.OnClickListener{
             ViewModelProviders.of(this, viewModelFactory)
         })
+        binding.genre.adapter = MovieGenreAdapter(MovieGenreAdapter.OnClickListener{
+            ViewModelProviders.of(this, viewModelFactory)
+        })
         return binding.root
     }
 }
