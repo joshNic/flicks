@@ -2,13 +2,17 @@ package com.example.flicks.adapters
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.flicks.Constants.IMAGE_URL
 import com.example.flicks.R
+import com.example.flicks.models.MovieTrailerResult
 import com.example.flicks.models.Result
+import com.example.flicks.movieDetails.MovieTrailerAdapter
 import com.example.flicks.overview.MoviesApiStatus
 import com.example.flicks.overview.PhotoGridAdapter
 
@@ -19,11 +23,23 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Result>?) {
     adapter.submitList(data)
 }
 
+@BindingAdapter("trailerData")
+fun bindTrailerRecyclerView(recyclerView: RecyclerView, dataa: List<MovieTrailerResult>?) {
+    val adapter = recyclerView.adapter as MovieTrailerAdapter
+    adapter.submitList(dataa)
+}
+
+
+@BindingAdapter("trailerName")
+fun bindTextView(textView: TextView, name:String){
+    name?.let { textView.text = name }
+}
+
 @BindingAdapter("posterPath")
 fun bindImage(imgView: ImageView, posterPath: String?) {
     posterPath?.let {
 
-        val img = "https://image.tmdb.org/t/p/w500" + posterPath
+        val img = IMAGE_URL + posterPath
 
         val imgUri = img.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)

@@ -19,6 +19,10 @@ class DetailFragment : Fragment() {
         val viewModelFactory = DetailViewModelFactory(resultProperty, application)
         binding.viewModel = ViewModelProviders.of(
             this, viewModelFactory).get(MovieDetailViewModel::class.java)
+
+        binding.photGrid.adapter = MovieTrailerAdapter(MovieTrailerAdapter.OnClickListener{
+            ViewModelProviders.of(this, viewModelFactory)
+        })
         return binding.root
     }
 }

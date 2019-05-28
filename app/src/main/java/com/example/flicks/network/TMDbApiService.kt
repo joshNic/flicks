@@ -1,6 +1,8 @@
 package com.example.flicks.network
 
+import com.example.flicks.models.GenresResponse
 import com.example.flicks.models.MovieResponse
+import com.example.flicks.models.MovieTrailerResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -11,7 +13,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.themoviedb.org/"
+private const val BASE_URL = "https://api.themoviedb.org/3/"
 
 enum class MovieApiFilter(val path: String) {
     MOST_POPULAR("popular"), TOP_RATED("top_rated"), UPCOMING("upcoming"), NOW_PLAYING(
@@ -31,12 +33,24 @@ private val retrofit = Retrofit.Builder()
 
 interface TMDbApiService {
 
-    @GET("3/movie/{path}")
+    @GET("movie/{path}")
     fun getMoviesAsync(
         @Path("path") path: String,
-        @Query("api_key") type: String
+        @Query("api_key") api_key: String
     ):
             Deferred<MovieResponse>
+
+    @GET("movie/{movie_id}/videos")
+    fun getMovieTrailersAsync(
+        @Path("movie_id") movie_id: String,
+        @Query("api_key") api_key: String
+    ):
+            Deferred<MovieTrailerResponse>
+    @GET("genre/movie/list")
+    fun getMovieGenresAsync(
+        @Query("api_key") api_key: String
+    ):
+            Deferred<GenresResponse>
 }
 
 object TMDbApi {

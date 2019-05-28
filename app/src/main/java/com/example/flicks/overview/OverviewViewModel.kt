@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.flicks.API_KEY
+import com.example.flicks.Constants.API_KEY
 import com.example.flicks.models.Result
 import com.example.flicks.network.MovieApiFilter
 import com.example.flicks.network.TMDbApi
