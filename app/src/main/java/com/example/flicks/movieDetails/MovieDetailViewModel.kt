@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.flicks.Constants
+import com.example.flicks.models.Comment
 import com.example.flicks.models.Genre
 import com.example.flicks.models.MovieTrailerResult
 import com.example.flicks.models.Result
@@ -25,6 +26,11 @@ class MovieDetailViewModel(resultProperty: Result, app: Application) : AndroidVi
     val trailerResultData: LiveData<List<MovieTrailerResult>>
         get() = _trailerResultData
 
+    private val _commentsResultData = MutableLiveData<List<Comment>>()
+
+    val commentsResultData: LiveData<List<Comment>>
+        get() = _commentsResultData
+
     private val _genresResultData = MutableLiveData<List<Genre>>()
 
     val genresResultData: LiveData<List<Genre>>
@@ -38,6 +44,7 @@ class MovieDetailViewModel(resultProperty: Result, app: Application) : AndroidVi
         _selectedProperty.value = resultProperty
         getMovieTrailers(selectedProperty.value?.id.toString())
         getMovieGenre(selectedProperty.value!!.genreIds)
+        getMovieComments(selectedProperty.value?.id.toString())
 
     }
 
@@ -57,6 +64,27 @@ class MovieDetailViewModel(resultProperty: Result, app: Application) : AndroidVi
 
             } catch (e: Exception) {
                 Log.i("errorMovie", e.toString())
+
+            }
+        }
+    }
+
+    private fun getMovieComments(movieId: String) {
+        coroutineScope.launch {
+
+            var getPropertiesDeferred = TMDbApi.retrofitService.getMovieCommentsAsync(movieId, Constants.API_KEY)
+            try {
+                var listResult = getPropertiesDeferred.await()
+
+                if (listResult.results.isNotEmpty()) {
+
+                    _commentsResultData.value = listResult.results
+
+                    Log.i("ResultMovieComments", _commentsResultData.value?.size.toString())
+                }
+
+            } catch (e: Exception) {
+                Log.i("errorMovieComments", e.toString())
 
             }
         }

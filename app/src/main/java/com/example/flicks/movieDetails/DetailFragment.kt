@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.flicks.adapters.MovieCommentAdapter
+import com.example.flicks.adapters.MovieGenreAdapter
+import com.example.flicks.adapters.MovieTrailerAdapter
 import com.example.flicks.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
@@ -17,15 +20,22 @@ class DetailFragment : Fragment() {
         binding.setLifecycleOwner(this)
         val resultProperty = DetailFragmentArgs.fromBundle(arguments!!).selectedProperty
         val viewModelFactory = DetailViewModelFactory(resultProperty, application)
+
         binding.viewModel = ViewModelProviders.of(
             this, viewModelFactory).get(MovieDetailViewModel::class.java)
 
-        binding.photGrid.adapter = MovieTrailerAdapter(MovieTrailerAdapter.OnClickListener{
-            ViewModelProviders.of(this, viewModelFactory)
-        })
-        binding.genre.adapter = MovieGenreAdapter(MovieGenreAdapter.OnClickListener{
-            ViewModelProviders.of(this, viewModelFactory)
-        })
+        binding.photGrid.adapter =
+            MovieTrailerAdapter(MovieTrailerAdapter.OnClickListener {
+                ViewModelProviders.of(this, viewModelFactory)
+            })
+        binding.genre.adapter =
+            MovieGenreAdapter(MovieGenreAdapter.OnClickListener {
+                ViewModelProviders.of(this, viewModelFactory)
+            })
+        binding.comments.adapter =
+            MovieCommentAdapter(MovieCommentAdapter.OnClickListener {
+                ViewModelProviders.of(this, viewModelFactory)
+            })
         return binding.root
     }
 }

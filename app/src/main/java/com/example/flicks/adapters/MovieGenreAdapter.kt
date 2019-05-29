@@ -1,4 +1,4 @@
-package com.example.flicks.movieDetails
+package com.example.flicks.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flicks.databinding.GenreListGridBinding
 import com.example.flicks.models.Genre
 
-class MovieGenreAdapter(private val onClickListener: OnClickListener) : ListAdapter<Genre, MovieGenreAdapter.GenreViewHolder>(DiffCallback) {
+class MovieGenreAdapter(private val onClickListener: OnClickListener) : ListAdapter<Genre, MovieGenreAdapter.GenreViewHolder>(
+    DiffCallback
+) {
 
     class GenreViewHolder(private var binding: GenreListGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -32,7 +34,13 @@ class MovieGenreAdapter(private val onClickListener: OnClickListener) : ListAdap
         parent: ViewGroup,
         viewType: Int
     ): GenreViewHolder {
-        return GenreViewHolder(GenreListGridBinding.inflate(LayoutInflater.from(parent.context)))
+        return GenreViewHolder(
+            GenreListGridBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                )
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {

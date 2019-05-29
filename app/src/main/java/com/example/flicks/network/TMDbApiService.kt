@@ -1,6 +1,7 @@
 package com.example.flicks.network
 
 import com.example.flicks.models.GenresResponse
+import com.example.flicks.models.MovieCommentsResponse
 import com.example.flicks.models.MovieResponse
 import com.example.flicks.models.MovieTrailerResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -46,11 +47,19 @@ interface TMDbApiService {
         @Query("api_key") api_key: String
     ):
             Deferred<MovieTrailerResponse>
+
     @GET("genre/movie/list")
     fun getMovieGenresAsync(
         @Query("api_key") api_key: String
     ):
             Deferred<GenresResponse>
+
+    @GET("movie/{movie_id}/reviews")
+    fun getMovieCommentsAsync(
+        @Path("movie_id") movie_id: String,
+        @Query("api_key") api_key: String
+    ):
+            Deferred<MovieCommentsResponse>
 }
 
 object TMDbApi {

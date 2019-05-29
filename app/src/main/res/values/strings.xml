@@ -7,4 +7,6 @@
     <string name="playing">Movies Now Playing</string>
     <string name="textview">TextView</string>
     <string name="movie_trailers">Movie Trailers</string>
+    <string name="comment">This is a comment Image</string>
+    <string name="Comments">Comments</string>
 </resources>

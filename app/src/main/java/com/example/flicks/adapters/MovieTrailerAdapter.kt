@@ -1,4 +1,4 @@
-package com.example.flicks.movieDetails
+package com.example.flicks.adapters
 
 
 import android.view.LayoutInflater
@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flicks.databinding.HorizontalViewTrailerItemBinding
 
 import com.example.flicks.models.MovieTrailerResult
-import com.example.flicks.models.Result
 
-class MovieTrailerAdapter(private val onClickListener: OnClickListener) : ListAdapter<MovieTrailerResult, MovieTrailerAdapter.TrailerViewHolder>(DiffCallback) {
+class MovieTrailerAdapter(private val onClickListener: OnClickListener) : ListAdapter<MovieTrailerResult, MovieTrailerAdapter.TrailerViewHolder>(
+    DiffCallback
+) {
 
     class TrailerViewHolder(private var binding: HorizontalViewTrailerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -35,7 +36,11 @@ class MovieTrailerAdapter(private val onClickListener: OnClickListener) : ListAd
         parent: ViewGroup,
         viewType: Int
     ): TrailerViewHolder {
-        return TrailerViewHolder(HorizontalViewTrailerItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return TrailerViewHolder(
+            HorizontalViewTrailerItemBinding.inflate(
+                LayoutInflater.from(parent.context)
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: TrailerViewHolder, position: Int) {
