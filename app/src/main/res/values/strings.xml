@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Flicks</string>
+    <string name="todo">TODO</string>
+    <string name="popular">Most Popular Movies</string>
+    <string name="top_rated">Top Rated Movies</string>
+    <string name="upcoming">Upcoming Movies</string>
+    <string name="playing">Movies Now Playing</string>
+    <string name="textview">TextView</string>
+    <string name="movie_trailers">Movie Trailers</string>
+    <string name="comment">This is a comment Image</string>
+    <string name="Comments">Comments</string>
 </resources>
