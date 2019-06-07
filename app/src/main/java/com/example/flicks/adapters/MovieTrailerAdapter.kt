@@ -1,6 +1,7 @@
 package com.example.flicks.adapters
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -45,12 +46,15 @@ class MovieTrailerAdapter(private val onClickListener: OnClickListener) : ListAd
 
     override fun onBindViewHolder(holder: TrailerViewHolder, position: Int) {
         val resultData = getItem(position)
-//        holder.itemView.setOnClickListener {
-//            onClickListener.onClick(resultData)
-//        }
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(resultData)
+        }
         holder.bind(resultData)
     }
     class OnClickListener(val clickListener: (resultProperty: MovieTrailerResult) -> Unit){
-        fun onClick(resultProperty: MovieTrailerResult) = clickListener(resultProperty)
+        fun onClick(resultProperty: MovieTrailerResult){
+            clickListener(resultProperty)
+            Log.i("clicked",resultProperty.key)
+        }
+        }
     }
-}
