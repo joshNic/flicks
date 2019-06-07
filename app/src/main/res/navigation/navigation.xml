@@ -20,6 +20,13 @@
         <argument
             android:name="selectedProperty"
             app:argType="com.example.flicks.models.Result"/>
+        <action android:id="@+id/action_detailFragment" app:destination="@id/youtubeFragment"/>
+    </fragment>
+    <fragment android:id="@+id/youtubeFragment" android:name="com.example.flicks.YoutubeTrailer.YoutubeFragment"
+              android:label="YoutubeFragment">
+        <argument
+                android:name="selectedProperty"
+                app:argType="com.example.flicks.models.MovieTrailerResult"/>
     </fragment>
 
 </navigation>

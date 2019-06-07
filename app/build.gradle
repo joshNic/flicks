@@ -71,4 +71,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
     //Material chip
     implementation "com.google.android.material:material:$versio_material_chip"
+    //YoutubeAPI
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 }

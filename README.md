@@ -57,7 +57,7 @@ Technologies
 - Dagger2 (still to be implemented)
 - Navigation Component
 - Jetpack animations (still to be implemented)
-- YouTube API for showing youtube videos (still to be implemented)
+- YouTube API for showing youtube videos from Movie Trailers
 ```
 
 ## Contributing

@@ -36,6 +36,10 @@ class MovieDetailViewModel(resultProperty: Result, app: Application) : AndroidVi
     val genresResultData: LiveData<List<Genre>>
         get() = _genresResultData
 
+    private val _navigateToSelectedTrailer = MutableLiveData<MovieTrailerResult>()
+    val navigateToSelectedTrailer: LiveData<MovieTrailerResult>
+        get() = _navigateToSelectedTrailer
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -114,5 +118,14 @@ class MovieDetailViewModel(resultProperty: Result, app: Application) : AndroidVi
             }
         }
     }
+
+    fun displayMovieTrailer(trailerProperty: MovieTrailerResult) {
+        _navigateToSelectedTrailer.value = trailerProperty
+    }
+
+    fun displayMovieTrailerComplete() {
+        _navigateToSelectedTrailer.value = null
+    }
+
 
 }
