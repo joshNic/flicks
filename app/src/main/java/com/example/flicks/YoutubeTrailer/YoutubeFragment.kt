@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.flicks.Constants.API_KEY
+import com.example.flicks.Constants.YOU_TUBE_API_KEY
 import com.example.flicks.R
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -25,7 +25,7 @@ class YoutubeFragment : Fragment() {
         transaction.add(R.id.youtube_layout, youTubePlayerFragment as Fragment).commit()
 
 
-        youTubePlayerFragment.initialize(API_KEY, object : YouTubePlayer.OnInitializedListener {
+        youTubePlayerFragment.initialize(YOU_TUBE_API_KEY, object : YouTubePlayer.OnInitializedListener {
 
 
             override fun onInitializationSuccess(
