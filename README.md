@@ -56,6 +56,12 @@ Technologies
 - Livedata
 - Dagger2 (still to be implemented)
 - Navigation Component
+- Retrofit for network requests
+- Kotlin Couroutines
+- Workmanager (still to be implememnted)
+- Paging library (still to be implemented)
+- RXJava, RXKotlin(still to be implemented)
+- Animations(jetpack) (yet to be implemented)
 - Jetpack animations (still to be implemented)
 - YouTube API for showing youtube videos from Movie Trailers
 ```
