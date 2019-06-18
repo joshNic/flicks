@@ -52,7 +52,8 @@ Comming soon
 Technologies
 - ViewModels
 - Factory Pattern
-- Room for data persistance (still to be implemented)
+- Room for data persistance
+- Android Bottom navigation
 - Livedata
 - Dagger2 (still to be implemented)
 - Navigation Component
