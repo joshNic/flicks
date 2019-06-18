@@ -1,10 +1,13 @@
 package com.example.flicks.overview
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.flicks.Constants.API_KEY
+import com.example.flicks.database.MovieDatabaseDao
 import com.example.flicks.models.Result
 import com.example.flicks.network.MovieApiFilter
 import com.example.flicks.network.TMDbApi
@@ -15,9 +18,11 @@ import kotlinx.coroutines.launch
 
 enum class MoviesApiStatus { LOADING, ERROR, DONE }
 
-class OverviewViewModel : ViewModel() {
+class OverviewViewModel(val dataSource:MovieDatabaseDao, application: Application ): AndroidViewModel(application) {
 
     private val _status = MutableLiveData<MoviesApiStatus>()
+
+    var dbData = dataSource.getAllMovies()
 
     val status: LiveData<MoviesApiStatus>
         get() = _status
@@ -37,6 +42,7 @@ class OverviewViewModel : ViewModel() {
 
     init {
         getMovies(MovieApiFilter.MOST_POPULAR)
+        getAllMovies()
     }
 
     private fun getMovies(filter: MovieApiFilter) {
@@ -71,6 +77,7 @@ class OverviewViewModel : ViewModel() {
     fun displayPropertyDetails(movieProperty: Result) {
         _navigateToSelectedMovie.value = movieProperty
     }
+    fun getAllMovies(): LiveData<List<Result>> = dbData
 
     fun displayPropertyDetailsComplete() {
         _navigateToSelectedMovie.value = null

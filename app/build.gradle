@@ -45,8 +45,15 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
 
+    // Room and Lifecycle dependencies
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+
     // Core with Ktx
     implementation "androidx.core:core-ktx:$version_core"
+    //Gson
+    implementation "com.google.code.gson:gson:$gson_version"
 
 
     // Moshi
@@ -71,6 +78,9 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
     //Material chip
     implementation "com.google.android.material:material:$versio_material_chip"
+    //Material design
+    implementation "com.google.android.material:material:$material_design_version"
     //YoutubeAPI
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 }

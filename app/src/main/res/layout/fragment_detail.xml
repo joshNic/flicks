@@ -5,7 +5,19 @@
     <data>
         <variable name="viewModel" type="com.example.flicks.movieDetails.MovieDetailViewModel"/>
     </data>
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
+                                                         android:layout_height="match_parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:text="@string/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> viewModel.addMovieToDatabase()}"
+                android:id="@+id/button"
+                android:src="@drawable/ic_heart"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="10dp"
+        />
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".DetailFragment">
@@ -42,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#de000000"
-                    android:text="@{`Rating: `+String.valueOf(viewModel.selectedProperty.voteAverage)}"
+                    android:text="@{`Rating: `+String.valueOf(safeUnbox(viewModel.selectedProperty.voteAverage))}"
                     tools:text="rating"
                     app:layout_constraintStart_toEndOf="@+id/movie_title" android:layout_marginStart="92dp"
                     app:layout_constraintTop_toBottomOf="@+id/main_photo_image" android:layout_marginTop="16dp"
@@ -116,4 +128,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

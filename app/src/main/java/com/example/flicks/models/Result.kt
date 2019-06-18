@@ -1,23 +1,42 @@
 package com.example.flicks.models
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Entity(tableName = "movie_table")
 data class Result(
-    val adult: Boolean,
-    @Json(name = "backdrop_path") val backdropPath: String?,
-    @Json(name = "genre_ids") val genreIds: List<Int>,
-    val id: Int,
-    @Json(name = "original_language") val originalLanguage: String,
-    @Json(name = "original_title") val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
-    @Json(name = "poster_path") val posterPath: String,
-    @Json(name = "release_date") val releaseDate: String,
-    val title: String,
-    val video: Boolean,
-    @Json(name = "vote_average") val voteAverage: Double,
-    @Json(name = "vote_count") val voteCount: Int
+//    var adult: Boolean,
+    @PrimaryKey
+    var id: Int? = 0,
+//    @Ignore
+    @Json(name = "backdrop_path") var backdropPath: String? = "",
+//    @Ignore
+    @ColumnInfo(name = "genreIds")
+    @Json(name = "genre_ids") var genreIds: List<Int> = emptyList(),
+//    @Ignore
+    @Json(name = "original_language") var originalLanguage: String? = "",
+//    @Ignore
+    @Json(name = "original_title") var originalTitle: String? = "",
+    @ColumnInfo(name = "overview")
+    var overview: String? = "",
+//    @Ignore
+    var popularity: Double? = 0.0,
+    @ColumnInfo(name = "poster_path")
+    @Json(name = "poster_path") var posterPath: String? = "",
+//    @Ignore
+    @ColumnInfo(name = "releaseDate")
+    @Json(name = "release_date") var releaseDate: String? = "",
+    @ColumnInfo(name = "title")
+    var title: String? = "",
+//    var video: Boolean,
+//    @Ignore
+    @Json(name = "vote_average") var voteAverage: Double? = 0.0,
+//    @Ignore
+    @Json(name = "vote_count") var voteCount: Int? = 0
 ) : Parcelable

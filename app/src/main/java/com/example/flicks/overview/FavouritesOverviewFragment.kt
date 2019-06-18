@@ -11,7 +11,7 @@ import com.example.flicks.database.MovieDatabase
 import com.example.flicks.databinding.FragmentMoviesBinding
 import com.example.flicks.network.MovieApiFilter
 
-class OverviewFragment : Fragment() {
+class FavouritesOverviewFragment : Fragment() {
     lateinit var viewModel: OverviewViewModel
 
 //    private val viewModel: OverviewViewModel by lazy {
@@ -38,8 +38,7 @@ class OverviewFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
-            ViewModelProviders.of(
-                this, viewModelFactory).get(OverviewViewModel::class.java).displayPropertyDetails(it)
+            viewModel.displayPropertyDetails(it)
         })
         viewModel.navigateToSelectedMovie.observe(this, Observer {
             if (null != it){
@@ -47,25 +46,13 @@ class OverviewFragment : Fragment() {
                 viewModel.displayPropertyDetailsComplete()
             }
         })
+        viewModel.dbData.observe(this, Observer {
+            if (null != it){
+                viewModel.getAllMovies()
+            }
+        })
 
         setHasOptionsMenu(true)
         return binding.root
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.over_flow_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.updateFilter(
-            when (item.itemId) {
-                R.id.upcoming_menu -> MovieApiFilter.UPCOMING
-                R.id.top_rated_menu -> MovieApiFilter.TOP_RATED
-                R.id.now_playing_menu -> MovieApiFilter.NOW_PLAYING
-                else -> MovieApiFilter.MOST_POPULAR
-            }
-        )
-        return true
     }
 }

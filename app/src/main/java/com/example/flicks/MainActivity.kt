@@ -2,25 +2,37 @@ package com.example.flicks
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.flicks.databinding.ActivityMainBinding
+import androidx.navigation.ui.setupWithNavController
+//import com.example.flicks.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.home_fragment.*
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        @Suppress("UNUSED_VARIABLE")
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        val navController = this.findNavController(R.id.nav_host_fragment)
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        setContentView(R.layout.activity_main)
+
+        //Getting the Navigation Controller
+        navController = Navigation.findNavController(this, R.id.fragment)
+
+        //Setting the navigation controller to Bottom Nav
+        bottomNavigationView.setupWithNavController(navController)
+
+
+        //Setting up the action bar
+        //NavigationUI.setupActionBarWithNavController(this, navController)
+
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp()
-    }
+//    //Setting Up the back button
+//    override fun onSupportNavigateUp(): Boolean {
+//        return NavigationUI.navigateUp(navController, null)
+//    }
 }
