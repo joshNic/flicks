@@ -66,7 +66,13 @@ Technologies
 - Jetpack animations (still to be implemented)
 - YouTube API for showing youtube videos from Movie Trailers
 ```
-
+##Images
+![Alt text](images/1.png?raw=true 'Home/Welcome Screen')
+![Alt text](images/2.png?raw=true 'Favourite Movie Screen')
+![Alt text](images/3.png?raw=true 'Options Overflow')
+![Alt text](images/5.png?raw=true 'Detail Screen')
+![Alt text](images/6.png?raw=true 'Detail Screen Extended')
+![Alt text](images/7.png?raw=true 'Youtube Trailer Player Screen')
 ## Contributing
 ```Comming Soon```
 ## Versioning

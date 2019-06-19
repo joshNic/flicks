@@ -86,23 +86,23 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.detail_screen_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.detail_screen_menu, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        viewModel.updateFi
-            when (item.itemId) {
-                R.id.favourite_movies -> {
-                    Toast.makeText(context,"Clicked",Toast.LENGTH_SHORT).show()
-                    Log.i("Clicked","Clicked Image")
-                }
-//                R.id.top_rated_menu -> MovieApiFilter.TOP_RATED
-//                R.id.now_playing_menu -> MovieApiFilter.NOW_PLAYING
-                else -> true
-            }
-//        )
-        return true
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+////        viewModel.updateFi
+//            when (item.itemId) {
+//                R.id.favourite_movies -> {
+//                    Toast.makeText(context,"Clicked",Toast.LENGTH_SHORT).show()
+//                    Log.i("Clicked","Clicked Image")
+//                }
+////                R.id.top_rated_menu -> MovieApiFilter.TOP_RATED
+////                R.id.now_playing_menu -> MovieApiFilter.NOW_PLAYING
+//                else -> true
+//            }
+////        )
+//        return true
+//    }
 }
