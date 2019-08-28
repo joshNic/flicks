@@ -14,19 +14,12 @@ import com.example.flicks.network.MovieApiFilter
 class OverviewFragment : Fragment() {
     lateinit var viewModel: OverviewViewModel
 
-//    private val viewModel: OverviewViewModel by lazy {
-//        ViewModelProviders.of(this).get(OverviewViewModel::class.java)
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         val application = requireNotNull(value = activity).application
-//        val binding = FragmentDetailBinding.inflate(inflater)
-
-//        val resultProperty = DetailFragmentArgs.fromBundle(arguments!!).selectedProperty
         val dataSource = MovieDatabase.getInstance(application).movieDatabaseDao()
         val viewModelFactory = OverviewViewModelFactory(application,dataSource)
         val binding = FragmentMoviesBinding.inflate(inflater)
@@ -37,15 +30,19 @@ class OverviewFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
+        var adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
             ViewModelProviders.of(
                 this, viewModelFactory).get(OverviewViewModel::class.java).displayPropertyDetails(it)
         })
+        binding.photosGrid.adapter = adapter
         viewModel.navigateToSelectedMovie.observe(this, Observer {
             if (null != it){
                 this.findNavController().navigate(OverviewFragmentDirections.actionShowDetail(it))
                 viewModel.displayPropertyDetailsComplete()
             }
+        })
+        viewModel.start().observe(this, Observer {
+            adapter.submitList(it)
         })
 
         setHasOptionsMenu(true)

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.paging.toLiveData
 import com.example.flicks.R
 import com.example.flicks.YoutubeTrailer.YoutubeFragment
 import com.example.flicks.adapters.MovieCommentAdapter
@@ -52,7 +53,7 @@ class DetailFragment : Fragment() {
             })
 
         ViewModelProviders.of(
-            this, viewModelFactory).get(MovieDetailViewModel::class.java).dbData.observe(this, Observer {
+            this, viewModelFactory).get(MovieDetailViewModel::class.java).dbData.toLiveData(50).observe(this, Observer {
                 ViewModelProviders.of(
                     this, viewModelFactory).get(MovieDetailViewModel::class.java).getAllDatabaseMovies()
         })

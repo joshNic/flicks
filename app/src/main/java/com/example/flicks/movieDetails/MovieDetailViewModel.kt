@@ -97,7 +97,7 @@ class MovieDetailViewModel(resultProperty: Result, app: Application, val databas
     }
     fun getAllDatabaseMovies() {
         //db = database.getAllMovies()
-        Log.i("This is data", dbData.value.toString())
+//        Log.i("This is data", dbData.value.toString())
 //        db = database.getAllMovies()
 //        Log.i("databaseSize", db!!.value.toString())
 //        withContext(Dispatchers.IO) {
