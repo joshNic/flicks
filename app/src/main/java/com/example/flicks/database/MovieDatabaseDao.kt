@@ -1,6 +1,7 @@
 package com.example.flicks.database
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -19,7 +20,7 @@ interface MovieDatabaseDao {
 //    fun deleteMovie(key: Int): Result?
 
     @Query("SELECT * from movie_table")
-    fun getAllMovies(): LiveData<List<Result>>
+    fun getAllMovies(): DataSource.Factory<Int, Result>
 
 //    @Query("SELECT * from movie_table ORDER BY id ASC")
 //    fun getAllWords(): LiveData<List<Result>>

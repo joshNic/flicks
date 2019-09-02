@@ -1,20 +1,14 @@
 package com.example.flicks.overview
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.flicks.Constants.API_KEY
+import androidx.lifecycle.*
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import com.example.flicks.database.MovieDatabaseDao
 import com.example.flicks.models.Result
 import com.example.flicks.network.MovieApiFilter
-import com.example.flicks.network.TMDbApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.example.flicks.repository.MoviePagedListRepository
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 enum class MoviesApiStatus { LOADING, ERROR, DONE }
 
@@ -22,7 +16,7 @@ class OverviewViewModel(val dataSource:MovieDatabaseDao, application: Applicatio
 
     private val _status = MutableLiveData<MoviesApiStatus>()
 
-    var dbData = dataSource.getAllMovies()
+    var dbData = dataSource.getAllMovies().toLiveData(50)
 
     val status: LiveData<MoviesApiStatus>
         get() = _status
@@ -38,35 +32,24 @@ class OverviewViewModel(val dataSource:MovieDatabaseDao, application: Applicatio
 
     private var viewModelJob = Job()
 
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    lateinit var movieRepository: MoviePagedListRepository
 
     init {
-        getMovies(MovieApiFilter.MOST_POPULAR)
         getAllMovies()
     }
 
+    fun start(): LiveData<PagedList<Result>> {
+        movieRepository =
+            MoviePagedListRepository(MovieApiFilter.MOST_POPULAR.path)
+        var data = movieRepository.fetchLiveMoviePagedList()
+        return data
+    }
+
     private fun getMovies(filter: MovieApiFilter) {
-        coroutineScope.launch {
-
-            var getPropertiesDeferred = TMDbApi.retrofitService.getMoviesAsync(filter.path, API_KEY)
-            try {
-
-                _status.value = MoviesApiStatus.LOADING
-
-                var listResult = getPropertiesDeferred.await()
-
-                if (listResult.results.isNotEmpty()) {
-                    _status.value = MoviesApiStatus.DONE
-                    _resultData.value = listResult.results
-                }
-
-            } catch (e: Exception) {
-                _status.value = MoviesApiStatus.ERROR
-//                _resultData.value = ArrayList()
-                Log.i("errorMovie", e.toString())
-
-            }
-        }
+        if (movieRepository.path != filter.path)
+            movieRepository.path = filter.path
+            movieRepository.refreshData(filter.path)
     }
 
     override fun onCleared() {
@@ -77,7 +60,7 @@ class OverviewViewModel(val dataSource:MovieDatabaseDao, application: Applicatio
     fun displayPropertyDetails(movieProperty: Result) {
         _navigateToSelectedMovie.value = movieProperty
     }
-    fun getAllMovies(): LiveData<List<Result>> = dbData
+    fun getAllMovies(): LiveData<PagedList<Result>> = dbData
 
     fun displayPropertyDetailsComplete() {
         _navigateToSelectedMovie.value = null

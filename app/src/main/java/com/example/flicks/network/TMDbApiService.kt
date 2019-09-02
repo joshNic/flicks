@@ -37,7 +37,8 @@ interface TMDbApiService {
     @GET("movie/{path}")
     fun getMoviesAsync(
         @Path("path") path: String,
-        @Query("api_key") api_key: String
+        @Query("api_key") api_key: String,
+        @Query("page") page: String
     ):
             Deferred<MovieResponse>
 

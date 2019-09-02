@@ -2,13 +2,13 @@ package com.example.flicks.overview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flicks.databinding.GridViewItemBinding
 import com.example.flicks.models.Result
 
-class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<Result, PhotoGridAdapter.ResultViewHolder>(DiffCallback) {
+class PhotoGridAdapter(private val onClickListener: OnClickListener) : PagedListAdapter<Result, PhotoGridAdapter.ResultViewHolder>(DiffCallback) {
 
     class ResultViewHolder(private var binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,9 +38,9 @@ class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapt
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         val resultData = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(resultData)
+            resultData?.let { it1 -> onClickListener.onClick(it1) }
         }
-        holder.bind(resultData)
+        resultData?.let { holder.bind(it) }
     }
     class OnClickListener(val clickListener: (resultProperty: Result) -> Unit){
         fun onClick(resultProperty: Result) = clickListener(resultProperty)
