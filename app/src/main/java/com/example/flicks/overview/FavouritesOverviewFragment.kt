@@ -1,6 +1,7 @@
 package com.example.flicks.overview
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class FavouritesOverviewFragment : Fragment() {
         })
         viewModel.navigateToSelectedMovie.observe(this, Observer {
             if (null != it) {
-                this.findNavController().navigate(OverviewFragmentDirections.actionShowDetail(it))
+                this.findNavController().navigate(FavouritesOverviewFragmentDirections.actionFavouritesOverviewFragmentToDetailFragment(it))
                 viewModel.displayPropertyDetailsComplete()
             }
         })
