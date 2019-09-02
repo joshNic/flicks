@@ -30,7 +30,11 @@
     </fragment>
     <fragment android:id="@+id/favouritesOverviewFragment"
               android:name="com.example.flicks.overview.FavouritesOverviewFragment"
-              android:label="FavouritesOverviewFragment"/>
+              android:label="FavouritesOverviewFragment">
+        <action
+                android:id="@+id/action_favouritesOverviewFragment_to_detailFragment"
+                app:destination="@id/detailFragment" />
+    </fragment>
     <fragment android:id="@+id/homeFragment" android:name="com.example.flicks.HomeFragment"
               android:label="HomeFragment"/>
 
