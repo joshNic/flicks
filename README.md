@@ -60,7 +60,7 @@ Technologies
 - Retrofit for network requests
 - Kotlin Couroutines
 - Workmanager (still to be implememnted)
-- Paging library (still to be implemented)
+- Paging library
 - Animations (yet to be implemented)
 - YouTube API for showing youtube videos from Movie Trailers
 ```
