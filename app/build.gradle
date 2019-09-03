@@ -36,7 +36,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
 
     // Constraint Layout
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
+    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
@@ -77,7 +77,7 @@ dependencies {
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
     //Material chip
-    implementation "com.google.android.material:material:$versio_material_chip"
+    implementation "com.google.android.material:material:$version_material_chip"
     //Material design
     implementation "com.google.android.material:material:$material_design_version"
     //YoutubeAPI
