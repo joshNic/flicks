@@ -10,6 +10,7 @@ import com.example.flicks.R
 import com.example.flicks.database.MovieDatabase
 import com.example.flicks.databinding.FragmentMoviesBinding
 import com.example.flicks.network.MovieApiFilter
+import kotlinx.android.synthetic.main.fragment_movies.*
 
 class OverviewFragment : Fragment() {
     lateinit var viewModel: OverviewViewModel
@@ -43,6 +44,9 @@ class OverviewFragment : Fragment() {
         })
         viewModel.start().observe(this, Observer {
             adapter.submitList(it)
+        })
+        viewModel.status().observe(this, Observer {
+            progress_bar.visibility = if(it) View.VISIBLE else View.GONE
         })
 
         setHasOptionsMenu(true)

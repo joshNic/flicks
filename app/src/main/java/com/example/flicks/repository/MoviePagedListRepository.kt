@@ -26,4 +26,7 @@ class MoviePagedListRepository(var path: String) {
         moviesDataSourceFactory.path = new_path
         moviesDataSourceFactory.sourceLiveData.value?.invalidate()
     }
+
+    fun getStatus() = moviesDataSourceFactory.loading
+
 }
