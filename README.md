@@ -79,7 +79,8 @@ Technologies
 ![Alt text](images/7.png?raw=true 'Youtube Trailer Player Screen')
 
 ## Contributing
-```Comming Soon```
+```Find a story to work on in the projects tab or raise an issue then work on your implementation from another branch off develop.
+Then make a pull request to develop. Pr will be reviewed and if it follows standards set it will be merged```
 ## Versioning
 
 ```Comming Soon```
