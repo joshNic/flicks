@@ -33,18 +33,18 @@ class OverviewViewModel(val dataSource:MovieDatabaseDao, application: Applicatio
     private var viewModelJob = Job()
 
 
-    lateinit var movieRepository: MoviePagedListRepository
+    var movieRepository: MoviePagedListRepository =
+        MoviePagedListRepository(MovieApiFilter.MOST_POPULAR.path)
+
 
     init {
         getAllMovies()
     }
 
-    fun start(): LiveData<PagedList<Result>> {
-        movieRepository =
-            MoviePagedListRepository(MovieApiFilter.MOST_POPULAR.path)
-        var data = movieRepository.fetchLiveMoviePagedList()
-        return data
-    }
+    fun start() = movieRepository.fetchLiveMoviePagedList()
+
+
+    fun status() = movieRepository.getStatus()
 
     private fun getMovies(filter: MovieApiFilter) {
         if (movieRepository.path != filter.path)
