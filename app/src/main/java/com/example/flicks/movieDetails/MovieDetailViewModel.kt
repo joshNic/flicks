@@ -6,9 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.example.flicks.Constants
-import com.example.flicks.database.MovieDatabase
 import com.example.flicks.database.MovieDatabaseDao
 //import com.example.flicks.database.MovieRepository
 import com.example.flicks.models.Comment
@@ -18,7 +16,11 @@ import com.example.flicks.models.Result
 import com.example.flicks.network.TMDbApi
 import kotlinx.coroutines.*
 
-class MovieDetailViewModel(resultProperty: Result, app: Application, val database: MovieDatabaseDao) :
+class MovieDetailViewModel(
+    resultProperty: Result,
+    app: Application,
+    val database: MovieDatabaseDao
+) :
     AndroidViewModel(app) {
     private val _selectedProperty = MutableLiveData<Result>()
 
@@ -66,7 +68,8 @@ class MovieDetailViewModel(resultProperty: Result, app: Application, val databas
     private fun getMovieTrailers(movieId: String) {
         coroutineScope.launch {
 
-            var getPropertiesDeferred = TMDbApi.retrofitService.getMovieTrailersAsync(movieId, Constants.API_KEY)
+            var getPropertiesDeferred =
+                TMDbApi.retrofitService.getMovieTrailersAsync(movieId, Constants.API_KEY)
             try {
                 var listResult = getPropertiesDeferred.await()
 
@@ -74,7 +77,7 @@ class MovieDetailViewModel(resultProperty: Result, app: Application, val databas
 
                     _trailerResultData.value = listResult.results
 
-                    Log.i("ResultMovieTrailer", _trailerResultData.value?.size.toString())
+//                    Log.i("ResultMovieTrailer", _trailerResultData.value?.size.toString())
                 }
 
             } catch (e: Exception) {
@@ -87,14 +90,34 @@ class MovieDetailViewModel(resultProperty: Result, app: Application, val databas
     suspend fun insertMovie(result: Result) {
         withContext(Dispatchers.IO) {
             database.insertMovie(result)
-            Log.i("Single Result", database.getMovie(532321).toString())
-//            Log.i("All Results", database.getAllMovies().value?.size.toString())
-            //Log.i("This is the data", database.getAllMovies().toString())
-
-
-
         }
     }
+
+     fun getMovi(movieId: Int):Int {
+        var len = 0
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                if (!database.getMovie(movieId).toString().isNullOrEmpty()){
+                    len = database.getMovie(movieId).toString().length
+                }
+            }
+        }
+        return len
+    }
+    fun getMove(): Int = getMovi(selectedProperty.value!!.id)
+    suspend fun removeFavourite(movieId: Int){
+        Log.d("favourite","Movie removed from favourites")
+        withContext(Dispatchers.IO) {
+           database.deleteByMovieId(movieId)
+        }
+    }
+    fun removeMovieFromDatabase() {
+        coroutineScope.launch {
+            removeFavourite(selectedProperty.value!!.id)
+            Toast.makeText(getApplication(), "Movie Removed From Favourites", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     fun getAllDatabaseMovies() {
         //db = database.getAllMovies()
 //        Log.i("This is data", dbData.value.toString())
@@ -111,14 +134,30 @@ class MovieDetailViewModel(resultProperty: Result, app: Application, val databas
     fun addMovieToDatabase() {
         coroutineScope.launch {
             insertMovie(selectedProperty.value!!)
-            Toast.makeText(getApplication(),"Movie Added To Favourites", Toast.LENGTH_SHORT).show()
+            Toast.makeText(getApplication(), "Movie Added To Favourites", Toast.LENGTH_SHORT).show()
         }
     }
+
+
+//    fun getMovieFromDatabase() = runBlocking{
+//        getMovie(selectedProperty.value!!.id)
+//    }
+//        var movieId=0
+
+//                 getMovie(selectedProperty.value!!.id)
+//
+////            insertMovie(selectedProperty.value!!)
+//
+//            Toast.makeText(getApplication(),"Movie Added To Favourites", Toast.LENGTH_SHORT).show()
+//        }
+//        return movieId
+//    }
 
     private fun getMovieComments(movieId: String) {
         coroutineScope.launch {
 
-            var getPropertiesDeferred = TMDbApi.retrofitService.getMovieCommentsAsync(movieId, Constants.API_KEY)
+            var getPropertiesDeferred =
+                TMDbApi.retrofitService.getMovieCommentsAsync(movieId, Constants.API_KEY)
             try {
                 var listResult = getPropertiesDeferred.await()
 
@@ -126,7 +165,7 @@ class MovieDetailViewModel(resultProperty: Result, app: Application, val databas
 
                     _commentsResultData.value = listResult.results
 
-                    Log.i("ResultMovieComments", _commentsResultData.value?.size.toString())
+//                    Log.i("ResultMovieComments", _commentsResultData.value?.size.toString())
                 }
 
             } catch (e: Exception) {
@@ -151,8 +190,8 @@ class MovieDetailViewModel(resultProperty: Result, app: Application, val databas
                         it.id in genreList
                     }
                     _genresResultData.value = newGenresList
-                    Log.i("Gener", genresResultData.value.toString())
-                    Log.i("Generrr", genresResultData.value?.size.toString())
+//                    Log.i("Gener", genresResultData.value.toString())
+//                    Log.i("Generrr", genresResultData.value?.size.toString())
                 }
             } catch (e: Exception) {
                 Log.i("errorMovie", e.toString())
