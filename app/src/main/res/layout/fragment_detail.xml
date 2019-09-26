@@ -11,9 +11,9 @@
                 android:text="@string/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()-> viewModel.addMovieToDatabase()}"
+                android:onClick="@{()->viewModel.getMove() &lt; 5?viewModel.addMovieToDatabase():viewModel.removeMovieFromDatabase()}"
                 android:id="@+id/button"
-                android:src="@drawable/ic_heart"
+                android:src="@{viewModel.getMove() > 5 ? @drawable/ic_favorite:@drawable/ic_heart}"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="10dp"
         />

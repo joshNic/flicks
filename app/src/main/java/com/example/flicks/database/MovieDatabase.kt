@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.flicks.models.Result
 
-@Database(entities = [Result::class], version = 5, exportSchema = false)
+@Database(entities = [Result::class], version = 6, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MovieDatabase : RoomDatabase() {
     abstract fun movieDatabaseDao(): MovieDatabaseDao

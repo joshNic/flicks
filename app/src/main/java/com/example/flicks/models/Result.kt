@@ -13,7 +13,7 @@ import kotlinx.android.parcel.Parcelize
 data class Result(
 //    var adult: Boolean,
     @PrimaryKey
-    var id: Int? = 0,
+    var id: Int,
 //    @Ignore
     @Json(name = "backdrop_path") var backdropPath: String? = "",
 //    @Ignore
