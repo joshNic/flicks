@@ -6,13 +6,13 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.example.flicks.overview.OverviewViewModel"/>
+                type="com.my.flicks.overview.OverviewViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.example.flicks.MainActivity">
+            tools:context="com.my.flicks.MainActivity">
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/photos_grid"
                 android:layout_width="0dp"

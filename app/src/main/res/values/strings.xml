@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Flicks</string>
+    <string name="app_name">My Flicks</string>
     <string name="todo">TODO</string>
     <string name="popular">Most Popular Movies</string>
     <string name="top_rated">Top Rated Movies</string>
@@ -11,4 +11,7 @@
     <string name="Comments">Comments</string>
     <string name="play_video">Play Video</string>
     <string name="button">Button</string>
+    <string name="favoritesScreenTitle">My Favorites</string>
+    <string name="movieTrailerScreenTitle">Movie Trailer</string>
+    <string name="movieDetailScreenTitle">Movie Details</string>
 </resources>
