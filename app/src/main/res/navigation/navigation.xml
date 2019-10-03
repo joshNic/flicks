@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/navigation"
-            app:startDestination="@id/overviewFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigation"
+        app:startDestination="@id/overviewFragment">
 
     <fragment
             android:id="@+id/overviewFragment"
-            android:name="com.example.flicks.overview.OverviewFragment"
-            android:label="OverviewFragment"
+            android:name="com.my.flicks.overview.OverviewFragment"
+            android:label="@string/app_name"
             tools:layout="@layout/fragment_movies">
         <action
                 android:id="@+id/action_showDetail"
-                app:destination="@id/detailFragment"/>
+                app:destination="@id/detailFragment" />
     </fragment>
-    <fragment android:id="@+id/detailFragment" android:name="com.example.flicks.movieDetails.DetailFragment"
-              android:label="DetailFragment"
-              tools:layout="@layout/fragment_detail">
+    <fragment
+            android:id="@+id/detailFragment"
+            android:name="com.my.flicks.movieDetails.DetailFragment"
+            android:label="@string/movieDetailScreenTitle"
+            tools:layout="@layout/fragment_detail">
         <argument
                 android:name="selectedProperty"
-                app:argType="com.example.flicks.models.Result"/>
-        <action android:id="@+id/action_detailFragment" app:destination="@id/youtubeFragment"/>
+                app:argType="com.my.flicks.models.Result" />
+        <action
+                android:id="@+id/action_detailFragment"
+                app:destination="@id/youtubeFragment" />
     </fragment>
-    <fragment android:id="@+id/youtubeFragment" android:name="com.example.flicks.YoutubeTrailer.YoutubeFragment"
-              android:label="YoutubeFragment">
+    <fragment
+            android:id="@+id/youtubeFragment"
+            android:name="com.my.flicks.YoutubeTrailer.YoutubeFragment"
+            android:label="@string/movieTrailerScreenTitle">
         <argument
                 android:name="selectedProperty"
-                app:argType="com.example.flicks.models.MovieTrailerResult"/>
+                app:argType="com.my.flicks.models.MovieTrailerResult" />
     </fragment>
-    <fragment android:id="@+id/favouritesOverviewFragment"
-              android:name="com.example.flicks.overview.FavouritesOverviewFragment"
-              android:label="FavouritesOverviewFragment">
+    <fragment
+            android:id="@+id/favouritesOverviewFragment"
+            android:name="com.my.flicks.overview.FavouritesOverviewFragment"
+            android:label="@string/favoritesScreenTitle">
         <action
                 android:id="@+id/action_favouritesOverviewFragment_to_detailFragment"
                 app:destination="@id/detailFragment" />
     </fragment>
-    <fragment android:id="@+id/homeFragment" android:name="com.example.flicks.HomeFragment"
-              android:label="HomeFragment"/>
-
 </navigation>
