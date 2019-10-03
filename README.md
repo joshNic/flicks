@@ -95,6 +95,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* **Brian Wagubi**
-![alt text](https://github.com/archibishop "Wagubi Contributor")
+* [**Brian Wagubi**](https://github.com/archibishop)
+
 
