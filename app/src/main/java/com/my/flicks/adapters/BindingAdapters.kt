@@ -7,6 +7,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.my.flicks.Constants.IMAGE_URL
@@ -23,6 +24,11 @@ import com.my.flicks.overview.PhotoGridAdapter
 fun bindRecyclerView(recyclerView: RecyclerView, data: PagedList<Result>?) {
     val adapter = recyclerView.adapter as PhotoGridAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("isRefreshing")
+fun isRefreshing(swipeRefreshLayout: SwipeRefreshLayout, isRefreshing: Boolean) {
+    swipeRefreshLayout.isRefreshing = isRefreshing
 }
 
 @BindingAdapter("trailerData")

@@ -47,23 +47,14 @@ class OverviewFragment : Fragment() {
         viewModel.start().observe(this, Observer {
             adapter.submitList(it)
         })
+
         viewModel.status().observe(this, Observer {
             progress_bar.visibility = if (it) View.VISIBLE else View.GONE
         })
-
-        //        val navHostFragment = childFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
-
-//        view?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-//            ?.setupWithNavController(navHostFragment.navController)
-
-//        val toolbar = view?.findViewById<Toolbar>(R.id.toolbar)
-
-        // Custom navigation listener allows me to change the title
-//        navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->  toolbar?.title = destination.label}
-//        navHostFragment.navController.addOnDestinationChangedListener{ _, destination ->
-//            toolbar?.title = destination.label
-//        }
-
+        binding.swiperefresh.setOnRefreshListener{
+            viewModel.swipeToRefresh()
+            if(!viewModel.isRefreshing.get()) binding.swiperefresh.isRefreshing = false
+        }
         setHasOptionsMenu(true)
         return binding.root
     }

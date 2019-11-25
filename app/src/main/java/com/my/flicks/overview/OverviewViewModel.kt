@@ -1,6 +1,7 @@
 package com.my.flicks.overview
 
 import android.app.Application
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
@@ -15,6 +16,7 @@ enum class MoviesApiStatus { LOADING, ERROR, DONE }
 class OverviewViewModel(val dataSource:MovieDatabaseDao, application: Application ): AndroidViewModel(application) {
 
     private val _status = MutableLiveData<MoviesApiStatus>()
+    val isRefreshing = ObservableBoolean()
 
     var dbData = dataSource.getAllMovies().toLiveData(50)
     var dbDataQuery = dataSource.getAllWords()
@@ -53,6 +55,11 @@ class OverviewViewModel(val dataSource:MovieDatabaseDao, application: Applicatio
             movieRepository.refreshData(filter.path)
     }
 
+    fun  swipeToRefresh() {
+        movieRepository.refreshData("popular")
+        isRefreshing.set(false)
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
@@ -61,7 +68,18 @@ class OverviewViewModel(val dataSource:MovieDatabaseDao, application: Applicatio
     fun displayPropertyDetails(movieProperty: Result) {
         _navigateToSelectedMovie.value = movieProperty
     }
-    fun getAllMovies(): LiveData<PagedList<Result>> = dbData
+    fun getAllMovies(): LiveData<PagedList<Result>>
+    {
+        isRefreshing.set(true)
+        if (dbData.toString().isNotEmpty()){
+            isRefreshing.set(false)
+            //return dbData
+        }
+        else{
+            isRefreshing.set(false)
+        }
+        return dbData
+    }
 
     fun displayPropertyDetailsComplete() {
         _navigateToSelectedMovie.value = null
